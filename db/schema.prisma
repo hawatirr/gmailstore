@@ -1,0 +1,85 @@
+// Generator untuk Prisma Client
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Datasource database (SQLite untuk development, bisa diganti PostgreSQL untuk production)
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Tabel User untuk autentikasi
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  passwordHash String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+  
+  @@map("users")
+}
+
+// Tabel Product untuk menyimpan produk digital
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  priceUsd    Float
+  stock       Int      @default(0)
+  deliveryData String? // Data untuk auto-delivery (JSON string)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orders      Order[]
+  accountPools AccountPool[]
+  
+  @@map("products")
+}
+
+// Tabel Order untuk tracking pembelian
+model Order {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  productId      Int
+  quantity       Int
+  totalAmount    Float
+  currency       String   @default("USD")
+  status         String   @default("PENDING") // PENDING, PAID, FAILED, DELIVERED
+  binanceOrderId String?  @unique
+  checkoutUrl    String?
+  paidAt         DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id])
+  product        Product  @relation(fields: [productId], references: [id])
+  deliveryLogs   DeliveryLog[]
+  
+  @@map("orders")
+}
+
+// Tabel AccountPool untuk menyimpan stok akun digital (Gmail, dll)
+model AccountPool {
+  id           Int      @id @default(autoincrement())
+  productId    Int
+  type         String   // gmail_fresh, gmail_old, dll
+  credentials  String   // Email:Password atau data akun lainnya (encrypted)
+  isSold       Boolean  @default(false)
+  soldToOrderId Int?
+  createdAt    DateTime @default(now())
+  product      Product  @relation(fields: [productId], references: [id])
+  
+  @@map("account_pools")
+}
+
+// Tabel DeliveryLog untuk logging pengiriman produk
+model DeliveryLog {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  accountId Int
+  deliveredAt DateTime @default(now())
+  order     Order    @relation(fields: [orderId], references: [id])
+  
+  @@map("delivery_logs")
+}
