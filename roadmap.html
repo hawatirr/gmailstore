@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap Pengembangan Website Digital Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.18/index.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .phase-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .phase-content.open { max-height: 1200px; }
+        .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .accent-gradient { background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .copy-btn:active { transform: scale(0.95); }
+        .checklist-item input:checked + span { text-decoration: line-through; opacity: 0.6; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
+                <i data-lucide="code-2" class="w-4 h-4"></i> Panduan Pengembangan Qwen Coder
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-bold mb-3 tracking-tight text-slate-900">Website Jual Produk Digital</h1>
+            <p class="text-slate-500 max-w-2xl mx-auto">Auto-payment Binance Pay (Demo) & Auto-delivery. Struktur rapi, modern, siap deploy.</p>
+        </header>
+
+        <!-- Progress Tracker -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-semibold text-slate-700">Progress Implementasi</h2>
+                <span id="progress-text" class="text-sm font-medium text-blue-600">0/6 Fase Selesai</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Roadmap Phases -->
+        <div id="phases-container" class="space-y-4">
+            <!-- Phase 1 -->
+            <div class="phase-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <button class="phase-toggle w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition" data-phase="1">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600 font-bold">1</span>
+                        <div>
+                            <h3 class="font-semibold text-slate-900">Setup Proyek & Arsitektur Dasar</h3>
+                            <p class="text-sm text-slate-500">Inisialisasi repo, struktur folder, konfigurasi environment</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 phase-icon"></i>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 space-y-4">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Tech Stack</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Next.js (App Router)</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">TailwindCSS</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Node.js/Express</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">SQLite/PostgreSQL</span>
+                            </div>
+                        </div>
+                        <div class="checklist-item space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Inisialisasi repo & struktur folder (`/src`, `/app`, `/api`, `/db`)</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Setup `.env.example` (DB_URL, JWT_SECRET, BINANCE_SANDBOX_KEYS)</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Konfigurasi ESLint & Prettier untuk konsistensi kode</span></label>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-slate-600">Prompt untuk Qwen:</span>
+                                <button class="copy-btn px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition" data-copy="phase1-prompt">Salin</button>
+                            </div>
+                            <pre id="phase1-prompt" class="text-xs text-slate-700 whitespace-pre-wrap font-mono overflow-x-auto">Buat struktur proyek Next.js (App Router) + Express backend terpisah. Gunakan TailwindCSS. Siapkan folder: /app (frontend), /server (backend), /db (schema & migration), /public. Buat file .env.example dengan variabel: DATABASE_URL, JWT_SECRET, BINANCE_API_KEY, BINANCE_SECRET_KEY, APP_URL. Pastikan kode rapi, modular, dan siap untuk integrasi database SQLite/PostgreSQL.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <button class="phase-toggle w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition" data-phase="2">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-600 font-bold">2</span>
+                        <div>
+                            <h3 class="font-semibold text-slate-900">Autentikasi & Database Schema</h3>
+                            <p class="text-sm text-slate-500">Register, Login, JWT, struktur tabel Users & Products</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 phase-icon"></i>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 space-y-4">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Tech Stack</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">bcrypt / argon2</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">jsonwebtoken</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Prisma ORM</span>
+                            </div>
+                        </div>
+                        <div class="checklist-item space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Buat schema DB: `User` (id, email, password_hash, created_at), `Product` (id, name, price, stock, file_data)</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Endpoint `/api/auth/register` & `/api/auth/login` dengan validasi input</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Middleware JWT protect untuk route `/api/dashboard`</span></label>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-slate-600">Prompt untuk Qwen:</span>
+                                <button class="copy-btn px-2 py-1 bg-purple-600 text-white text-xs rounded hover:bg-purple-700 transition" data-copy="phase2-prompt">Salin</button>
+                            </div>
+                            <pre id="phase2-prompt" class="text-xs text-slate-700 whitespace-pre-wrap font-mono overflow-x-auto">Buat sistem autentikasi dengan Next.js + Prisma ORM. Schema: User(id, email, passwordHash, createdAt), Product(id, name, price_usd, stock, deliveryData). Gunakan bcrypt untuk hash password dan JWT untuk session. Buat endpoint POST /api/auth/register dan /api/auth/login. Tambahkan middleware verifyToken. Pastikan validasi email/password ketat dan error handling rapi.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <button class="phase-toggle w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition" data-phase="3">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-100 text-amber-600 font-bold">3</span>
+                        <div>
+                            <h3 class="font-semibold text-slate-900">Integrasi Binance Pay (Sandbox/Demo)</h3>
+                            <p class="text-sm text-slate-500">Create order, webhook listener, auto-detect payment status</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 phase-icon"></i>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 space-y-4">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Tech Stack</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Binance Pay Sandbox API</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">crypto (HMAC-SHA512)</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Axios / Fetch</span>
+                            </div>
+                        </div>
+                        <div class="checklist-item space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Daftar akun Binance Merchant Sandbox & dapatkan API Key/Secret</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Endpoint `/api/payment/create-order` (generate QR/Payload)</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Webhook `/api/payment/binance-webhook` untuk listen status `PAY_SUCCESS`</span></label>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-slate-600">Prompt untuk Qwen:</span>
+                                <button class="copy-btn px-2 py-1 bg-amber-600 text-white text-xs rounded hover:bg-amber-700 transition" data-copy="phase3-prompt">Salin</button>
+                            </div>
+                            <pre id="phase3-prompt" class="text-xs text-slate-700 whitespace-pre-wrap font-mono overflow-x-auto">Implementasi Binance Pay Sandbox. Buat helper `signRequest(params, secret)` dengan HMAC-SHA512. Endpoint POST /api/payment/create-order menerima product_id & qty, menghitung total USD, memanggil API Binance `v1/order/create`, menyimpan orderId & userOrderStatus di DB. Buat endpoint POST /api/payment/binance-webhook untuk menerima callback. Verifikasi signature, update status order ke `PAID` jika status == "SUCCESS". Gunakan mode sandbox (testnet).</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <button class="phase-toggle w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition" data-phase="4">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 font-bold">4</span>
+                        <div>
+                            <h3 class="font-semibold text-slate-900">Sistem Auto-Delivery Produk</h3>
+                            <p class="text-sm text-slate-500">Logic pengiriman file otomatis setelah payment success</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 phase-icon"></i>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 space-y-4">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Produk Awal</h4>
+                            <ul class="text-sm text-slate-600 space-y-1">
+                                <li>📧 <strong>Gmail Fresh</strong> — $0.40 / akun</li>
+                                <li>📅 <strong>Gmail Old (2022-2023)</strong> — $0.60 / akun</li>
+                            </ul>
+                        </div>
+                        <div class="checklist-item space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Buat tabel `Order` & `DeliveryLog` di database</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Trigger auto-delivery saat webhook `PAY_SUCCESS` diterima</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Sistem ambil data akun dari pool DB sesuai qty pembelian, tandai `used=true`</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Kirim hasil ke dashboard user & optional via email</span></label>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-slate-600">Prompt untuk Qwen:</span>
+                                <button class="copy-btn px-2 py-1 bg-emerald-600 text-white text-xs rounded hover:bg-emerald-700 transition" data-copy="phase4-prompt">Salin</button>
+                            </div>
+                            <pre id="phase4-prompt" class="text-xs text-slate-700 whitespace-pre-wrap font-mono overflow-x-auto">Buat sistem auto-delivery setelah payment sukses. Tabel `AccountPool` berisi (id, type, credentials, is_sold, sold_to_order_id). Saat webhook Binance confirm success, jalankan fungsi `fulfillOrder(orderId)`: ambil qty akun dari pool yang `is_sold=false`, update status ke `true`, simpan ke `DeliveryLog`. Buat endpoint GET /api/user/purchases untuk menampilkan history & detail akun yang sudah dibeli. Pastikan transaksi atomic (menggunakan DB transaction) agar tidak terjadi double-send.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="phase-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <button class="phase-toggle w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition" data-phase="5">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-pink-100 text-pink-600 font-bold">5</span>
+                        <div>
+                            <h3 class="font-semibold text-slate-900">Frontend UI (Simple & Elegan)</h3>
+                            <p class="text-sm text-slate-500">Landing page, checkout modal, dashboard user</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 phase-icon"></i>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 space-y-4">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Tech Stack</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">React Server Components</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Zustand / Context</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Lucide Icons</span>
+                            </div>
+                        </div>
+                        <div class="checklist-item space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Halaman utama: Hero section + 2 card produk (Gmail Fresh & Old)</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Modal Checkout: Input qty, auto kalkulasi harga, pilih payment</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Dashboard User: Tabel history order, tombol copy credentials, status payment</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Desain minimalis: whitespace cukup, tipografi jelas, loading states</span></label>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-slate-600">Prompt untuk Qwen:</span>
+                                <button class="copy-btn px-2 py-1 bg-pink-600 text-white text-xs rounded hover:bg-pink-700 transition" data-copy="phase5-prompt">Salin</button>
+                            </div>
+                            <pre id="phase5-prompt" class="text-xs text-slate-700 whitespace-pre-wrap font-mono overflow-x-auto">Buat UI frontend Next.js yang simple & elegan. Halaman / (landing) menampilkan 2 produk dalam card grid. Klik "Beli" buka modal checkout: input jumlah, tampilkan total USD, tombol "Bayar dengan Binance". Setelah bayar, redirect ke dashboard /dashboard yang menampilkan tabel order history dengan status & tombol "Lihat Akun". Gunakan Tailwind, komponen reusable, skeleton loading, dan toast notification. Desain clean, modern, mobile-first.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 6 -->
+            <div class="phase-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <button class="phase-toggle w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition" data-phase="6">
+                    <div class="flex items-center gap-3">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-cyan-100 text-cyan-600 font-bold">6</span>
+                        <div>
+                            <h3 class="font-semibold text-slate-900">Testing, Keamanan & Deploy</h3>
+                            <p class="text-sm text-slate-500">Validasi akhir, optimasi, dan live launch</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 phase-icon"></i>
+                </button>
+                <div class="phase-content px-5 pb-5 border-t border-slate-100">
+                    <div class="pt-4 space-y-4">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Tech Stack</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Vercel / Render</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Supabase / Neon DB</span>
+                                <span class="px-2 py-1 bg-slate-100 rounded text-xs font-mono text-slate-700">Postman / Thunder Client</span>
+                            </div>
+                        </div>
+                        <div class="checklist-item space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Test flow lengkap: Register → Login → Checkout → Sandbox Pay → Webhook → Auto Deliver</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Rate limiting pada endpoint, validasi webhook signature ketat</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Setup environment variables production & backup database otomatis</span></label>
+                            <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="rounded border-slate-300"><span class="text-sm">Deploy frontend ke Vercel, backend ke Render/Railway, DB ke cloud provider</span></label>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-3 border border-slate-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-slate-600">Prompt untuk Qwen:</span>
+                                <button class="copy-btn px-2 py-1 bg-cyan-600 text-white text-xs rounded hover:bg-cyan-700 transition" data-copy="phase6-prompt">Salin</button>
+                            </div>
+                            <pre id="phase6-prompt" class="text-xs text-slate-700 whitespace-pre-wrap font-mono overflow-x-auto">Buat script testing & konfigurasi deploy. Tambahkan middleware rate-limit pada /api/auth & /api/payment. Validasi HMAC signature webhook secara ketat. Buat file `docker-compose.yml` atau instruksi deploy ke Vercel + Supabase. Sertakan checklist keamanan: sanitize input, hide stack trace di prod, setup CORS, backup DB otomatis. Pastikan aplikasi production-ready dan responsif.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-sm text-slate-500 pb-8">
+            <p>Dibuat untuk optimasi workflow Qwen Coder • Gunakan prompt satu per satu sesuai fase</p>
+            <p class="mt-1 text-slate-400">💡 Tips: Tunggu setiap fase selesai & teruji sebelum lanjut ke fase berikutnya.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Accordion Toggle
+        document.querySelectorAll('.phase-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('.phase-icon');
+                const isOpen = content.classList.contains('open');
+                
+                // Close all others (optional, keep it open for better UX in roadmap)
+                document.querySelectorAll('.phase-content').forEach(c => c.classList.remove('open'));
+                document.querySelectorAll('.phase-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+                
+                if (!isOpen) {
+                    content.classList.add('open');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Open first phase by default
+        document.querySelector('.phase-toggle').click();
+
+        // Copy to Clipboard
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const targetId = e.target.dataset.copy;
+                const text = document.getElementById(targetId).textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    const original = e.target.textContent;
+                    e.target.textContent = '✓ Tersalin';
+                    e.target.classList.add('bg-green-600');
+                    setTimeout(() => {
+                        e.target.textContent = original;
+                        e.target.classList.remove('bg-green-600');
+                    }, 2000);
+                });
+            });
+        });
+
+        // Progress Tracker
+        const checkboxes = document.querySelectorAll('.checklist-item input');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+
+        function updateProgress() {
+            const checked = document.querySelectorAll('.checklist-item input:checked').length;
+            const total = checkboxes.length;
+            const percent = Math.round((checked / total) * 100);
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${checked}/${total} Langkah Selesai`;
+        }
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateProgress);
+            // Load state from localStorage
+            const saved = localStorage.getItem(cb.parentNode.textContent.trim());
+            if (saved === 'true') cb.checked = true;
+        });
+        
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                localStorage.setItem(cb.parentNode.textContent.trim(), cb.checked);
+                updateProgress();
+            });
+        });
+        updateProgress();
+    </script>
+</body>
+</html>
